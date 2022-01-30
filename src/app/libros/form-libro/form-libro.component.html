@@ -1,0 +1,81 @@
+<div *ngIf="formulario" class="col-md-12 m-0 row justify-content-center">
+<div class="col-md-6 col-auto">
+    <h1 class="text-center" routerLink="/newBook">{{ libro ? 'Editar ' : 'Crear '}} libro</h1>
+
+    <div class="mt-5 alert alert-danger" *ngIf="errors">
+        {{errors | json}}
+    </div>
+
+    <form class="mt-5" [formGroup]="formulario" (ngSubmit)="save()">
+        <div class="mb-2">
+            <label for="title" style="text-align: center;">Título</label>
+            <input id="title" type="text" placeholder="Título" class="form-control" formControlName="titulo">
+            <div class="invalid-feedback">
+                <ng-container *ngIf="formulario.controls['titulo'].hasError('required')">
+                    Este campo es obligatorio
+                </ng-container>
+                
+                <ng-container *ngIf="formulario.controls['titulo'].hasError('minlength')">
+                    Debe tener como minimo 3 caracteres
+                </ng-container>
+                <ng-container *ngIf="formulario.controls['titulo'].hasError('maxlength')">
+                    Debe tener como maximo 100 caracteres
+                </ng-container>
+                
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="slug">Slug</label>
+            <input id="slug" type="text" placeholder="Slug" class="form-control" formControlName="slug">
+            <div class="invalid-feedback">
+                <ng-container *ngIf="formulario.controls['slug'].hasError('required')">
+                    Este campo es obligatorio
+                </ng-container>
+                
+                <ng-container *ngIf="formulario.controls['slug'].hasError('minlength')">
+                    Debe tener como minimo 3 caracteres
+                </ng-container>
+                <ng-container *ngIf="formulario.controls['slug'].hasError('maxlength')">
+                    Debe tener como maximo 100 caracteres
+                </ng-container>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" placeholder="Descripción" class="form-control" formControlName="descripcion"></textarea>
+            <div class="invalid-feedback">
+                <ng-container *ngIf="formulario.controls['descripcion'].hasError('required')">
+                    Este campo es obligatorio
+                </ng-container>
+                <ng-container *ngIf="formulario.controls['descripcion'].hasError('minlength')">
+                    Debe tener como minimo 3 caracteres
+                </ng-container>
+                <ng-container *ngIf="formulario.controls['descripcion'].hasError('maxlength')">
+                    Debe tener como maximo 100 caracteres
+                </ng-container>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="precio">Precio</label>
+            <input id="precio" type="text" step="0.01" placeholder="Precio" class="form-control" formControlName="precio">
+            <div class="invalid-feedback">
+                <ng-container *ngIf="formulario.controls['precio'].hasError('required')">
+                    Este campo es obligatorio
+                </ng-container>
+                <ng-container *ngIf="formulario.controls['precio'].hasError('min')">
+                    El numero Tiene que ser mayor a cero
+                </ng-container>
+            </div>
+        </div>
+        <div class="text-end">
+            <button class="btn btn-light" routerLink="/books">
+                Cancelar
+            </button>
+            <button class="btn btn-primary ms-2">
+                {{ libro ? 'Editar ' : 'Crear '}} libro 
+            </button>
+        </div>
+    </form>
+    
+</div>
+</div>
